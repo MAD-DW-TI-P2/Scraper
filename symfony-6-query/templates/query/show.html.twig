@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Query{% endblock %}
+
+{% block body %}
+    <h1>Query</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ query.id }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ query.created ? query.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Result</th>
+                <td>{{ query.result }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ query.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_query_index') }}">back to list</a>
+
+    <a href="{{ path('app_query_edit', {'id': query.id}) }}">edit</a>
+
+    {{ include('query/_delete_form.html.twig') }}
+{% endblock %}

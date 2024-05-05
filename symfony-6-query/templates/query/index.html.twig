@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Query index{% endblock %}
+
+{% block body %}
+    <h1>Query index</h1>
+
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Created</th>
+                <th>Site</th>
+                <th>Tools</th>
+                <th>Result</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for query in queries %}
+            <tr>
+                <td>{{ query.id }}</td>
+                <td>{{ query.created ? query.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ query.site.name }}</td>
+                <!--td>{% for tool in query.tool %}{{ tool.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td-->
+                <td>{% for tool in query.tool %}<span class="badge text-bg-success rounded-pill"> {{ tool.name }}</span>{% endfor %}</td>
+                <td>{{ query.result }}</td>
+                <td>{{ query.comment }}</td>
+                <td>
+                    <a href="{{ path('app_query_show', {'id': query.id}) }}">show</a>
+                    <a href="{{ path('app_query_edit', {'id': query.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_query_new') }}">Create new</a>
+{% endblock %}
